@@ -1,40 +1,27 @@
-const { query } = require('express')
+
 const express = require('express')
-const req = require('express/lib/request')
-const { fstat } = require('fs')
 const app = express()
 const path = require('path')
 
+const fs = require('fs')
 
+app.use(express.static(path.join(__dirname, '/src/static')))
 
-app.use(express.static(path.join(__dirname, '/src/static')
-  )
-)
 app.get('/sendForm',(req, res) =>{
-  console.log(req.query)
+  
   
 const oldContent = fs.readFileSync('data.json',{encoding:'utf-8'})
-console.log(ondContent)
-oldData = JSON.parse(oldContent);
-console.log(oldData)
+const proceedData = JSON.parse(oldContent);
+proceedData.push(req.query)
+const newData = JSON.stringify(proceedData, null , 2)
+fs.writeFileSync('data.json' , newData)
 res.send('ok')
-
-  // fs.open('data.json','w' , function (err, file) {
-  //   console.log('Saved!');
-  // })
-  res.send('OK')
- 
+})
+app.get('/getComments' ,(req,res) =>{
+  const readJSON = fs.readFileSync('data.json' ,{encoding:'utf-8'});
+  const proceedData = JSON.parse(readJSON);
+  res.json( proceedData )
 })
 
-
-app.get('/getComments', (req,res) => {
- 
- res.send("OK")
-})
-
-
-// app.get('/', function (req, res) {
-//   res.send('Hello World')
-// })
 
 app.listen(80)

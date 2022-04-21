@@ -1,7 +1,9 @@
 body {
   background-color: coral;
   background-image: url("../style/maliny2.jpg");
-  background-size: 50em;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 body form {
