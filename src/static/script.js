@@ -1,14 +1,14 @@
 
-
+let oldDataLenght = 0;
 function getComments(){
 fetch(location.origin + "/getComments")
 .then(dt => dt.json())
-.then(dt =>{
-    if(dt == oldData){
+.then(dt => {
+    if(dt.lenght == oldDataLenght){
         console.log("Nie ma nowych komentarzy");
         return;
     }else{
-        oldDataLenght = dt.Lenght;
+        oldDataLenght = dt.lenght;
     }
     
 
